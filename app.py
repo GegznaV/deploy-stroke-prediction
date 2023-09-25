@@ -91,7 +91,7 @@ def test_server():
     return "OK - server is up and running!"
 
 # To get the model's predictions
-@app.route("/predict", methods=["POST"])
+@app.route("/api/predict", methods=["POST"])
 def predict():
     # Get JSON data from the request
     request_data = request.json
