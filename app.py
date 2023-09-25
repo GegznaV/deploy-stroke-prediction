@@ -9,7 +9,7 @@ app = Flask(__name__)
 pipeline = joblib.load("model_to_deploy/final_pipeline.pkl")
 
 # To test if the server is up and running
-@app.route("/test_server", methods=["GET"])
+@app.route("/test", methods=["GET"])
 def test_server():
     return "OK - server is up and running!"
 
