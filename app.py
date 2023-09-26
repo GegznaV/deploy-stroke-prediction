@@ -1,17 +1,18 @@
 import pandas as pd
 import joblib
 from flask import Flask, request, jsonify
-from utils import get_stroke_risk_trend, ColumnSelector, FeatureEngineer
-
-app = Flask(__name__)
 
 # Load the pre-processing pipeline and the model from disk
 pipeline = joblib.load("model_to_deploy/final_pipeline.pkl")
+
+app = Flask(__name__)
+
 
 # To test if the server is up and running
 @app.route("/test", methods=["GET"])
 def test_server():
     return "OK - server is up and running!"
+
 
 # To get the model's predictions
 @app.route("/api/predict", methods=["POST"])
@@ -24,13 +25,13 @@ def predict():
     data = {
         "age": request_data["age"],
         "health_risk_score": request_data["health_risk_score"],
-        "smoking_status": request_data["smoking_status"]
+        "smoking_status": request_data["smoking_status"],
     }
     df = pd.DataFrame(data)
 
     # # Perform predictions using your pipeline (model)
     prediction = pipeline.predict(df)
-    probability = pipeline.predict_proba(df)[:, 1] # Positive class probabilities
+    probability = pipeline.predict_proba(df)[:, 1]  # Positive class probabilities
 
     # You can return the results as JSON
     return jsonify({
