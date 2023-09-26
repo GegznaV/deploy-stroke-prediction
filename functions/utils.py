@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
+
 def get_stroke_risk_trend(age, base_prob=1, age_threshold=40):
     """Calculate so-called 'stroke risk trend': a function based on the age.
 
@@ -21,6 +22,7 @@ def get_stroke_risk_trend(age, base_prob=1, age_threshold=40):
         base_prob,
         base_prob * 2 ** ((age - age_threshold) / 10),
     )
+
 
 class ColumnSelector(BaseEstimator, TransformerMixin):
     """Keeps only the indicated DataFrame columns
@@ -52,6 +54,7 @@ class ColumnSelector(BaseEstimator, TransformerMixin):
         # Select the indicated features from the input DataFrame X
         selected_features = X[self.keep]
         return pd.DataFrame(selected_features, columns=self.keep)
+
 
 class FeatureEngineer(BaseEstimator, TransformerMixin):
     """Transformer to do feature engineering for the final model"""
